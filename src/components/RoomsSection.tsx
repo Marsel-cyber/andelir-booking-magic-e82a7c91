@@ -1,6 +1,8 @@
 import { Bed, Wifi, Coffee, Bath, Users, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import roomDouble from '@/assets/room-double.jpeg';
+import roomTwin from '@/assets/room-twin.jpeg';
 
 const rooms = [
   {
@@ -10,7 +12,7 @@ const rooms = [
     price: 850000,
     size: '32 m²',
     guests: 2,
-    image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070',
+    image: roomDouble,
     amenities: ['WiFi Gratis', 'AC', 'TV LED 42"', 'Minibar'],
   },
   {
@@ -20,7 +22,7 @@ const rooms = [
     price: 1500000,
     size: '48 m²',
     guests: 3,
-    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2074',
+    image: roomTwin,
     amenities: ['WiFi Gratis', 'Bathtub', 'Ruang Tamu', 'Breakfast'],
   },
   {
