@@ -5,7 +5,7 @@ const Footer = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <footer id="contact" className="bg-foreground text-background">
+    <footer id="contact" className="bg-background border-t border-border">
       <div className="container mx-auto px-4 py-16">
         <div 
           ref={ref}
@@ -19,24 +19,23 @@ const Footer = () => {
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-xl">A</span>
               </div>
-              <span className="font-bold text-xl">Andelir Hotel</span>
+              <span className="font-bold text-xl text-foreground">Andelir Hotel</span>
             </div>
-            <p className="text-background/70 mb-6">
+            <p className="text-muted-foreground mb-6">
               Hotel bintang 4 dengan lokasi strategis di pusat kota Bandung. 
-              Menyediakan akomodasi premium dengan pelayanan terbaik untuk 
-              pengalaman menginap yang tak terlupakan.
+              Menyediakan akomodasi premium dengan pelayanan terbaik.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+            <div className="flex gap-3">
+              <a href="#" className="w-10 h-10 bg-muted hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-colors text-foreground">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <a href="#" className="w-10 h-10 bg-muted hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-colors text-foreground">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <a href="#" className="w-10 h-10 bg-muted hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-colors text-foreground">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-background/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <a href="#" className="w-10 h-10 bg-muted hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-colors text-foreground">
                 <Youtube className="w-5 h-5" />
               </a>
             </div>
@@ -44,11 +43,11 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Link Cepat</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-6">Link Cepat</h3>
             <ul className="space-y-3">
-              {['Tentang Kami', 'Kamar & Suite', 'Fasilitas', 'Galeri', 'Promo', 'Blog', 'Karir'].map((link) => (
+              {['Tentang Kami', 'Kamar & Suite', 'Fasilitas', 'Galeri', 'Promo', 'Blog'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-background/70 hover:text-primary transition-colors">
+                  <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                     {link}
                   </a>
                 </li>
@@ -58,40 +57,40 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Kontak</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-6">Kontak</h3>
             <ul className="space-y-4">
               <li className="flex gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                <span className="text-background/70">
-                  Jl. Andelir No. 123, Bandung 40123, Jawa Barat, Indonesia
+                <span className="text-muted-foreground">
+                  Jl. Andelir No. 123, Bandung 40123, Jawa Barat
                 </span>
               </li>
               <li className="flex gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-background/70">(022) 123-4567</span>
+                <span className="text-muted-foreground">(022) 123-4567</span>
               </li>
               <li className="flex gap-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-background/70">info@andelirhotel.com</span>
+                <span className="text-muted-foreground">info@andelirhotel.com</span>
               </li>
               <li className="flex gap-3">
                 <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-background/70">Check-in: 14:00 | Check-out: 12:00</span>
+                <span className="text-muted-foreground">Check-in: 14:00 | Check-out: 12:00</span>
               </li>
             </ul>
           </div>
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Newsletter</h3>
-            <p className="text-background/70 mb-4">
+            <h3 className="text-lg font-semibold text-foreground mb-6">Newsletter</h3>
+            <p className="text-muted-foreground mb-4">
               Dapatkan info promo dan penawaran spesial langsung ke email Anda.
             </p>
             <form className="space-y-3">
               <input
                 type="email"
                 placeholder="Email Anda"
-                className="w-full px-4 py-3 rounded-lg bg-background/10 border border-background/20 text-background placeholder:text-background/50 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <button
                 type="submit"
@@ -103,14 +102,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-background/60 text-sm text-center md:text-left">
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-muted-foreground text-sm text-center md:text-left">
             © 2026 Andelir Hotel. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-background/60">
+          <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-primary transition-colors">Cookie Policy</a>
           </div>
         </div>
       </div>

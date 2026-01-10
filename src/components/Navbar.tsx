@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
@@ -60,11 +60,7 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+6221123456" className={`flex items-center gap-2 ${isScrolled ? 'text-foreground' : 'text-background'}`}>
-              <Phone className="w-4 h-4" />
-              <span className="font-medium">(021) 123-456</span>
-            </a>
+          <div className="hidden lg:block">
             <Button className="bg-primary hover:bg-primary-dark text-primary-foreground">
               Pesan Sekarang
             </Button>
