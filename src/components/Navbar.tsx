@@ -24,6 +24,19 @@ const Navbar = () => {
     { name: 'Kontak', href: '#contact' },
   ];
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -49,6 +62,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleSmoothScroll(e, link.href)}
                 className={`font-medium transition-colors hover:text-primary ${
                   isScrolled ? 'text-foreground' : 'text-background'
                 }`}
@@ -86,7 +100,7 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 className="block py-3 px-4 text-foreground hover:text-primary hover:bg-primary-light transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => handleSmoothScroll(e, link.href)}
               >
                 {link.name}
               </a>
