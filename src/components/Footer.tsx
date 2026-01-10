@@ -15,11 +15,12 @@ const Footer = () => {
         >
           {/* About */}
           <div>
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">A</span>
-              </div>
-              <span className="font-bold text-xl text-foreground">Andelir Hotel</span>
+            <div className="mb-6">
+              <img 
+                src="/images/andelir-logo.png" 
+                alt="Andelir Hotel Bandung" 
+                className="h-14 w-auto"
+              />
             </div>
             <p className="text-muted-foreground mb-6">
               Hotel bintang 4 dengan lokasi strategis di pusat kota Bandung. 
