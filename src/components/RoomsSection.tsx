@@ -25,16 +25,6 @@ const rooms = [
     image: roomTwin,
     amenities: ['WiFi Gratis', 'Bathtub', 'Ruang Tamu', 'Breakfast'],
   },
-  {
-    id: 3,
-    name: 'Presidential Suite',
-    description: 'Kemewahan tertinggi dengan fasilitas eksklusif dan butler service',
-    price: 3500000,
-    size: '85 m²',
-    guests: 4,
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
-    amenities: ['Butler Service', 'Jacuzzi', 'Living Room', 'Kitchen'],
-  },
 ];
 
 const formatPrice = (price: number) => {

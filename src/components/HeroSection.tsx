@@ -1,4 +1,5 @@
 import BookingWidget from './BookingWidget';
+import hotelBuilding from '@/assets/hotel-building-2.jpeg';
 
 const HeroSection = () => {
   return (
@@ -7,7 +8,7 @@ const HeroSection = () => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070')`,
+          backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url(${hotelBuilding})`,
         }}
       />
 

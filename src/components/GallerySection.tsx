@@ -1,54 +1,48 @@
 import { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import hotelBuilding1 from '@/assets/hotel-building-1.jpeg';
+import hotelPool from '@/assets/hotel-pool.jpeg';
+import hotelRestaurant from '@/assets/hotel-restaurant.jpeg';
+import hotelRestaurant2 from '@/assets/hotel-restaurant-2.jpeg';
+import roomDouble from '@/assets/room-double.jpeg';
+import roomTwin from '@/assets/room-twin.jpeg';
 
 const galleryImages = [
   {
     id: 1,
-    src: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070',
-    alt: 'Lobby Hotel',
-    category: 'Lobby',
+    src: hotelBuilding1,
+    alt: 'Gedung Hotel',
+    category: 'Eksterior',
   },
   {
     id: 2,
-    src: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070',
-    alt: 'Kamar Deluxe',
-    category: 'Kamar',
-  },
-  {
-    id: 3,
-    src: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2080',
+    src: hotelPool,
     alt: 'Kolam Renang',
     category: 'Fasilitas',
   },
   {
-    id: 4,
-    src: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2070',
+    id: 3,
+    src: hotelRestaurant,
     alt: 'Restoran',
     category: 'Restoran',
   },
   {
+    id: 4,
+    src: hotelRestaurant2,
+    alt: 'Area Makan',
+    category: 'Restoran',
+  },
+  {
     id: 5,
-    src: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2074',
-    alt: 'Suite Room',
+    src: roomDouble,
+    alt: 'Deluxe Room',
     category: 'Kamar',
   },
   {
     id: 6,
-    src: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=2070',
-    alt: 'Pool View',
-    category: 'Fasilitas',
-  },
-  {
-    id: 7,
-    src: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=2070',
-    alt: 'Spa',
-    category: 'Fasilitas',
-  },
-  {
-    id: 8,
-    src: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
-    alt: 'Presidential Suite',
+    src: roomTwin,
+    alt: 'Suite Room',
     category: 'Kamar',
   },
 ];
@@ -58,7 +52,7 @@ const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState('Semua');
 
-  const filters = ['Semua', 'Kamar', 'Fasilitas', 'Restoran', 'Lobby'];
+  const filters = ['Semua', 'Kamar', 'Fasilitas', 'Restoran', 'Eksterior'];
 
   const filteredImages = activeFilter === 'Semua' 
     ? galleryImages 
