@@ -35,13 +35,12 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">A</span>
-            </div>
-            <span className={`font-bold text-xl ${isScrolled ? 'text-foreground' : 'text-background'}`}>
-              Andelir Hotel
-            </span>
+          <a href="#home" className="flex items-center">
+            <img 
+              src="/images/andelir-logo.png" 
+              alt="Andelir Hotel Bandung" 
+              className={`h-12 w-auto transition-all ${isScrolled ? '' : 'brightness-0 invert'}`}
+            />
           </a>
 
           {/* Desktop Navigation */}
