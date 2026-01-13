@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Calendar, Users, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,19 @@ const BookingWidget = () => {
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState('');
   const [roomType, setRoomType] = useState('');
+
+  // Minimum checkout date is the check-in date
+  const minCheckOut = useMemo(() => {
+    return checkIn || '';
+  }, [checkIn]);
+
+  // Reset checkout if it's before check-in
+  const handleCheckInChange = (value: string) => {
+    setCheckIn(value);
+    if (checkOut && value > checkOut) {
+      setCheckOut('');
+    }
+  };
 
   const handleBooking = () => {
     const phoneNumber = '6282221016393';
@@ -39,7 +52,7 @@ Mohon informasi ketersediaan kamar. Terima kasih.`;
           <Input
             type="date"
             value={checkIn}
-            onChange={(e) => setCheckIn(e.target.value)}
+            onChange={(e) => handleCheckInChange(e.target.value)}
             className="border-border focus:ring-primary"
           />
         </div>
@@ -54,6 +67,7 @@ Mohon informasi ketersediaan kamar. Terima kasih.`;
             type="date"
             value={checkOut}
             onChange={(e) => setCheckOut(e.target.value)}
+            min={minCheckOut}
             className="border-border focus:ring-primary"
           />
         </div>
