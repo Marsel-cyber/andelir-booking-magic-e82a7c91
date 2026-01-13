@@ -1,40 +1,29 @@
 import { 
   Waves, 
-  Dumbbell, 
   Utensils, 
   Car, 
   Wifi, 
   Coffee,
-  Sparkles,
   Users,
   LucideIcon
 } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
+import hotelPool from '@/assets/hotel-pool.jpeg';
+import hotelRestaurant from '@/assets/hotel-restaurant.jpeg';
 
 const facilities = [
   {
     icon: Waves,
     name: 'Kolam Renang',
     description: 'Kolam renang outdoor dengan pemandangan kota',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400',
-  },
-  {
-    icon: Dumbbell,
-    name: 'Fitness Center',
-    description: 'Gym modern dengan peralatan lengkap 24 jam',
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400',
+    image: hotelPool,
   },
   {
     icon: Utensils,
     name: 'Restoran',
     description: 'Restoran dengan masakan lokal dan internasional',
-    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400',
-  },
-  {
-    icon: Sparkles,
-    name: 'Spa & Wellness',
-    description: 'Layanan spa dan pijat relaksasi profesional',
-    image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400',
+    image: hotelRestaurant,
   },
 ];
 
