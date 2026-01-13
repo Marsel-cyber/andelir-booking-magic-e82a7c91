@@ -56,7 +56,7 @@ const FacilitiesSection = () => {
         </div>
 
         {/* Main Facilities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto">
           {facilities.map((facility, index) => (
             <FacilityCard key={facility.name} facility={facility} index={index} />
           ))}

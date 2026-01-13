@@ -1,7 +1,7 @@
 import { MessageCircle } from 'lucide-react';
 
 const WhatsAppButton = () => {
-  const phoneNumber = '6281234567890'; // Ganti dengan nomor WhatsApp hotel
+  const phoneNumber = '6282221016393';
   const message = encodeURIComponent('Halo, saya ingin bertanya tentang reservasi di Andelir Hotel.');
   
   return (
