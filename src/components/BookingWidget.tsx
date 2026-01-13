@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, Users, Search } from 'lucide-react';
+import { Calendar, Users, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -7,6 +7,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 const BookingWidget = () => {
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
+  const [guests, setGuests] = useState('');
+  const [roomType, setRoomType] = useState('');
+
+  const handleBooking = () => {
+    const phoneNumber = '6282221016393';
+    const guestText = guests ? `${guests} Dewasa` : 'Belum dipilih';
+    const roomText = roomType === 'deluxe' ? 'Deluxe Room' : roomType === 'suite' ? 'Suite Room' : 'Belum dipilih';
+    
+    const message = `Halo Kak, saya ingin melakukan reservasi:
+- Check-in: ${checkIn || 'Belum dipilih'}
+- Check-out: ${checkOut || 'Belum dipilih'}
+- Jumlah Tamu: ${guestText}
+- Tipe Kamar: ${roomText}
+
+Mohon informasi ketersediaan kamar. Terima kasih.`;
+
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <div className="bg-background rounded-2xl shadow-2xl p-6 lg:p-8 w-full max-w-5xl mx-auto -mt-20 relative z-10">
@@ -45,7 +64,7 @@ const BookingWidget = () => {
             <Users className="w-4 h-4 text-primary" />
             Tamu
           </label>
-          <Select>
+          <Select value={guests} onValueChange={setGuests}>
             <SelectTrigger>
               <SelectValue placeholder="Pilih tamu" />
             </SelectTrigger>
@@ -61,23 +80,24 @@ const BookingWidget = () => {
         {/* Room Type */}
         <div className="space-y-2">
           <label className="text-sm font-medium text-muted-foreground">Tipe Kamar</label>
-          <Select>
+          <Select value={roomType} onValueChange={setRoomType}>
             <SelectTrigger>
               <SelectValue placeholder="Pilih kamar" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="deluxe">Deluxe Room</SelectItem>
               <SelectItem value="suite">Suite Room</SelectItem>
-              <SelectItem value="presidential">Presidential Suite</SelectItem>
-              <SelectItem value="family">Family Room</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
-        {/* Search Button */}
-        <Button className="bg-primary hover:bg-primary-dark text-primary-foreground h-10 gap-2">
-          <Search className="w-4 h-4" />
-          Cari Kamar
+        {/* WhatsApp Button */}
+        <Button 
+          onClick={handleBooking}
+          className="bg-primary hover:bg-primary-dark text-primary-foreground h-10 gap-2"
+        >
+          <MessageCircle className="w-4 h-4" />
+          Pesan via WA
         </Button>
       </div>
     </div>

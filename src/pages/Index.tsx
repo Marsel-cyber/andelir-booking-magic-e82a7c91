@@ -3,7 +3,7 @@ import HeroSection from '@/components/HeroSection';
 import RoomsSection from '@/components/RoomsSection';
 import FacilitiesSection from '@/components/FacilitiesSection';
 import GallerySection from '@/components/GallerySection';
-import PromoBanner from '@/components/PromoBanner';
+// import PromoBanner from '@/components/PromoBanner';
 import BlogSection from '@/components/BlogSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import Footer from '@/components/Footer';
@@ -19,7 +19,7 @@ const Index = () => {
       </div>
       <FacilitiesSection />
       <GallerySection />
-      <PromoBanner />
+      {/* <PromoBanner /> */}
       <TestimonialSection />
       <BlogSection />
       <Footer />
