@@ -1,31 +1,9 @@
-import { Bed, Wifi, Coffee, Bath, Users, ChevronRight } from 'lucide-react';
+import { Users, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useRooms } from '@/hooks/useRooms';
+import { useSettings } from '@/hooks/useSettings';
 import roomDouble from '@/assets/room-double.jpeg';
-import roomTwin from '@/assets/room-twin.jpeg';
-
-const rooms = [
-  {
-    id: 1,
-    name: 'Deluxe Room',
-    description: 'Kamar nyaman dengan pemandangan kota yang menakjubkan',
-    price: 850000,
-    size: '32 m²',
-    guests: 2,
-    image: roomDouble,
-    amenities: ['WiFi Gratis', 'AC', 'TV LED 42"', 'Minibar'],
-  },
-  {
-    id: 2,
-    name: 'Suite Room',
-    description: 'Suite elegan dengan ruang tamu terpisah dan bathtub mewah',
-    price: 1500000,
-    size: '48 m²',
-    guests: 3,
-    image: roomTwin,
-    amenities: ['WiFi Gratis', 'Bathtub', 'Ruang Tamu', 'Breakfast'],
-  },
-];
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat('id-ID', {
@@ -37,6 +15,14 @@ const formatPrice = (price: number) => {
 
 const RoomsSection = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const { rooms, loading } = useRooms();
+  const { settings } = useSettings();
+
+  const handleBooking = () => {
+    const phoneNumber = settings.whatsapp_number || '6282221016393';
+    const message = encodeURIComponent('Halo, saya ingin melakukan reservasi kamar di Andelir Hotel.');
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+  };
 
   return (
     <section id="rooms" className="py-24 bg-background">
@@ -54,24 +40,47 @@ const RoomsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {rooms.map((room, index) => (
-            <RoomCard key={room.id} room={room} index={index} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          </div>
+        ) : rooms.length === 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            Belum ada kamar yang tersedia
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {rooms.map((room, index) => (
+              <RoomCard key={room.id} room={room} index={index} onBook={handleBooking} />
+            ))}
+          </div>
+        )}
 
-        <div className="text-center mt-12">
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-            Lihat Semua Kamar
-            <ChevronRight className="w-4 h-4 ml-2" />
-          </Button>
-        </div>
+        {rooms.length > 0 && (
+          <div className="text-center mt-12">
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              Lihat Semua Kamar
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
-const RoomCard = ({ room, index }: { room: typeof rooms[0]; index: number }) => {
+interface Room {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  size: string | null;
+  max_guests: number | null;
+  image_url: string | null;
+  amenities: string[] | null;
+}
+
+const RoomCard = ({ room, index, onBook }: { room: Room; index: number; onBook: () => void }) => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
@@ -84,41 +93,45 @@ const RoomCard = ({ room, index }: { room: typeof rooms[0]; index: number }) => 
     >
       <div className="relative overflow-hidden h-64">
         <img
-          src={room.image}
+          src={room.image_url || roomDouble}
           alt={room.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-          {room.size}
-        </div>
+        {room.size && (
+          <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+            {room.size}
+          </div>
+        )}
       </div>
 
       <div className="p-6">
         <div className="flex items-center gap-2 text-muted-foreground text-sm mb-3">
           <Users className="w-4 h-4" />
-          <span>Maks {room.guests} Tamu</span>
+          <span>Maks {room.max_guests || 2} Tamu</span>
         </div>
 
         <h3 className="text-xl font-bold text-foreground mb-2">{room.name}</h3>
-        <p className="text-muted-foreground text-sm mb-4">{room.description}</p>
+        <p className="text-muted-foreground text-sm mb-4">{room.description || 'Kamar nyaman dengan fasilitas lengkap'}</p>
 
-        <div className="flex flex-wrap gap-2 mb-6">
-          {room.amenities.map((amenity) => (
-            <span
-              key={amenity}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-xs"
-            >
-              {amenity}
-            </span>
-          ))}
-        </div>
+        {room.amenities && room.amenities.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {room.amenities.map((amenity) => (
+              <span
+                key={amenity}
+                className="inline-flex items-center gap-1 px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-xs"
+              >
+                {amenity}
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className="flex items-center justify-between pt-4 border-t border-border">
           <div>
             <span className="text-2xl font-bold text-primary">{formatPrice(room.price)}</span>
             <span className="text-muted-foreground text-sm">/malam</span>
           </div>
-          <Button className="bg-primary hover:bg-primary-dark text-primary-foreground">
+          <Button onClick={onBook} className="bg-primary hover:bg-primary-dark text-primary-foreground">
             Pesan
           </Button>
         </div>
