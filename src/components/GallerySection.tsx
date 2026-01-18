@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useGallery } from '@/hooks/useGallery';
 import hotelBuilding1 from '@/assets/hotel-building-1.jpeg';
 import hotelPool from '@/assets/hotel-pool.jpeg';
 import hotelRestaurant from '@/assets/hotel-restaurant.jpeg';
@@ -8,55 +9,37 @@ import hotelRestaurant2 from '@/assets/hotel-restaurant-2.jpeg';
 import roomDouble from '@/assets/room-double.jpeg';
 import roomTwin from '@/assets/room-twin.jpeg';
 
-const galleryImages = [
-  {
-    id: 1,
-    src: hotelBuilding1,
-    alt: 'Gedung Hotel',
-    category: 'Eksterior',
-  },
-  {
-    id: 2,
-    src: hotelPool,
-    alt: 'Kolam Renang',
-    category: 'Fasilitas',
-  },
-  {
-    id: 3,
-    src: hotelRestaurant,
-    alt: 'Restoran',
-    category: 'Restoran',
-  },
-  {
-    id: 4,
-    src: hotelRestaurant2,
-    alt: 'Area Makan',
-    category: 'Restoran',
-  },
-  {
-    id: 5,
-    src: roomDouble,
-    alt: 'Deluxe Room',
-    category: 'Kamar',
-  },
-  {
-    id: 6,
-    src: roomTwin,
-    alt: 'Suite Room',
-    category: 'Kamar',
-  },
+const fallbackImages = [
+  { id: '1', image_url: hotelBuilding1, alt_text: 'Gedung Hotel', category: 'Eksterior' },
+  { id: '2', image_url: hotelPool, alt_text: 'Kolam Renang', category: 'Fasilitas' },
+  { id: '3', image_url: hotelRestaurant, alt_text: 'Restoran', category: 'Restoran' },
+  { id: '4', image_url: hotelRestaurant2, alt_text: 'Area Makan', category: 'Restoran' },
+  { id: '5', image_url: roomDouble, alt_text: 'Deluxe Room', category: 'Kamar' },
+  { id: '6', image_url: roomTwin, alt_text: 'Suite Room', category: 'Kamar' },
 ];
+
+interface GalleryImage {
+  id: string;
+  image_url: string;
+  alt_text: string | null;
+  category: string | null;
+}
 
 const GallerySection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { gallery, loading } = useGallery();
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState('Semua');
 
-  const filters = ['Semua', 'Kamar', 'Fasilitas', 'Restoran', 'Eksterior'];
+  // Use database images or fallback
+  const images: GalleryImage[] = gallery.length > 0 ? gallery : fallbackImages;
+
+  // Get unique categories
+  const categories = ['Semua', ...Array.from(new Set(images.map(img => img.category || 'Lainnya')))];
 
   const filteredImages = activeFilter === 'Semua' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === activeFilter);
+    ? images 
+    : images.filter(img => img.category === activeFilter);
 
   const openLightbox = (index: number) => setSelectedImage(index);
   const closeLightbox = () => setSelectedImage(null);
@@ -93,7 +76,7 @@ const GallerySection = () => {
 
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {filters.map((filter) => (
+          {categories.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
@@ -109,16 +92,22 @@ const GallerySection = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredImages.map((image, index) => (
-            <GalleryItem 
-              key={image.id} 
-              image={image} 
-              index={index} 
-              onClick={() => openLightbox(index)} 
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredImages.map((image, index) => (
+              <GalleryItem 
+                key={image.id} 
+                image={image} 
+                index={index} 
+                onClick={() => openLightbox(index)} 
+              />
+            ))}
+          </div>
+        )}
 
         {/* Lightbox */}
         {selectedImage !== null && (
@@ -138,8 +127,8 @@ const GallerySection = () => {
             </button>
             
             <img
-              src={filteredImages[selectedImage].src}
-              alt={filteredImages[selectedImage].alt}
+              src={filteredImages[selectedImage].image_url}
+              alt={filteredImages[selectedImage].alt_text || 'Gallery image'}
               className="max-w-full max-h-[85vh] object-contain rounded-lg"
             />
             
@@ -151,7 +140,7 @@ const GallerySection = () => {
             </button>
 
             <div className="absolute bottom-4 text-background text-center">
-              <p className="font-medium">{filteredImages[selectedImage].alt}</p>
+              <p className="font-medium">{filteredImages[selectedImage].alt_text}</p>
               <p className="text-sm opacity-70">{selectedImage + 1} / {filteredImages.length}</p>
             </div>
           </div>
@@ -162,7 +151,7 @@ const GallerySection = () => {
 };
 
 const GalleryItem = ({ image, index, onClick }: { 
-  image: typeof galleryImages[0]; 
+  image: GalleryImage; 
   index: number; 
   onClick: () => void;
 }) => {
@@ -178,13 +167,13 @@ const GalleryItem = ({ image, index, onClick }: {
       style={{ animationDelay: `${index * 0.08}s` }}
     >
       <img
-        src={image.src}
-        alt={image.alt}
+        src={image.image_url}
+        alt={image.alt_text || 'Gallery image'}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="absolute bottom-0 left-0 right-0 p-4 text-background translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-        <p className="font-medium">{image.alt}</p>
+        <p className="font-medium">{image.alt_text}</p>
         <p className="text-sm opacity-80">{image.category}</p>
       </div>
     </div>

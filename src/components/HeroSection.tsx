@@ -1,14 +1,21 @@
 import BookingWidget from './BookingWidget';
+import { useSettings } from '@/hooks/useSettings';
 import hotelBuilding from '@/assets/hotel-building-2.jpeg';
 
 const HeroSection = () => {
+  const { settings, loading } = useSettings();
+  
+  const bannerImage = settings.hero_banner_url || hotelBuilding;
+  const title = settings.hero_title || 'Selamat Datang di Andelir Hotel';
+  const subtitle = settings.hero_subtitle || 'Pengalaman menginap mewah di jantung kota Bandung dengan pelayanan terbaik.';
+
   return (
     <section id="home" className="relative min-h-[90vh] flex items-center">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url(${hotelBuilding})`,
+          backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url(${bannerImage})`,
         }}
       />
 
@@ -16,11 +23,18 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 pt-20">
         <div className="max-w-2xl animate-fade-up">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Selamat Datang di{' '}
-            <span className="text-hotel-gold">Andelir Hotel</span>
+            {title.includes('Andelir') ? (
+              <>
+                {title.split('Andelir')[0]}
+                <span className="text-hotel-gold">Andelir Hotel</span>
+                {title.split('Andelir Hotel')[1] || ''}
+              </>
+            ) : (
+              title
+            )}
           </h1>
           <p className="text-lg text-white/80 mb-8 max-w-xl">
-            Pengalaman menginap mewah di jantung kota Bandung dengan pelayanan terbaik.
+            {subtitle}
           </p>
           <a
             href="#rooms"

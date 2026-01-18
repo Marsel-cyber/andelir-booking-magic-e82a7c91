@@ -1,7 +1,8 @@
-import { MessageCircle } from 'lucide-react';
+import { useSettings } from '@/hooks/useSettings';
 
 const WhatsAppButton = () => {
-  const phoneNumber = '6282221016393';
+  const { settings } = useSettings();
+  const phoneNumber = settings.whatsapp_number || '6282221016393';
   const message = encodeURIComponent('Halo, saya ingin bertanya tentang reservasi di Andelir Hotel.');
   
   return (

@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { LogOut, Bed, Image, MessageSquare, FileText, Home } from 'lucide-react';
+import { LogOut, Bed, Image, MessageSquare, FileText, Home, Settings } from 'lucide-react';
 import { toast } from 'sonner';
 import AdminRooms from '@/components/admin/AdminRooms';
 import AdminGallery from '@/components/admin/AdminGallery';
 import AdminTestimonials from '@/components/admin/AdminTestimonials';
 import AdminBlogs from '@/components/admin/AdminBlogs';
+import AdminSettings from '@/components/admin/AdminSettings';
 
 const Admin = () => {
   const { user, loading, isAdmin, signOut } = useAuth();
@@ -45,7 +46,6 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="bg-card border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -65,10 +65,9 @@ const Admin = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="rooms" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-flex">
+          <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:inline-flex">
             <TabsTrigger value="rooms" className="flex items-center gap-2">
               <Bed className="w-4 h-4" />
               <span className="hidden sm:inline">Kamar</span>
@@ -85,22 +84,26 @@ const Admin = () => {
               <FileText className="w-4 h-4" />
               <span className="hidden sm:inline">Blog</span>
             </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="w-4 h-4" />
+              <span className="hidden sm:inline">Pengaturan</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="rooms">
             <AdminRooms />
           </TabsContent>
-
           <TabsContent value="gallery">
             <AdminGallery />
           </TabsContent>
-
           <TabsContent value="testimonials">
             <AdminTestimonials />
           </TabsContent>
-
           <TabsContent value="blogs">
             <AdminBlogs />
+          </TabsContent>
+          <TabsContent value="settings">
+            <AdminSettings />
           </TabsContent>
         </Tabs>
       </main>
