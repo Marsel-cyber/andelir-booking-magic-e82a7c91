@@ -105,19 +105,21 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm text-center md:text-left">
-            © 2026 Andelir Hotel. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+          <div className="flex items-center gap-4">
             <Link 
               to="/admin/login" 
-              className="hover:text-primary transition-colors flex items-center gap-1 opacity-50 hover:opacity-100"
+              className="text-muted-foreground hover:text-primary transition-colors opacity-50 hover:opacity-100"
               title="Admin Login"
             >
               <Settings className="w-3 h-3" />
             </Link>
+            <p className="text-muted-foreground text-sm text-center md:text-left">
+              © 2026 Andelir Hotel. All rights reserved.
+            </p>
+          </div>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
