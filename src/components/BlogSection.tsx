@@ -1,4 +1,5 @@
 import { Calendar, ArrowRight, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useBlogs } from '@/hooks/useBlogs';
@@ -149,13 +150,13 @@ const BlogCard = ({ post, index }: { post: Blog; index: number }) => {
           {post.excerpt || 'Klik untuk membaca selengkapnya...'}
         </p>
 
-        <a 
-          href="#" 
+        <Link 
+          to={`/blog/${post.id}`}
           className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
         >
           Baca Selengkapnya
           <ArrowRight className="w-4 h-4" />
-        </a>
+        </Link>
       </div>
     </article>
   );
