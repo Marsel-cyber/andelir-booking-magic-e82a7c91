@@ -1,4 +1,5 @@
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Youtube, Settings } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Footer = () => {
@@ -107,9 +108,16 @@ const Footer = () => {
           <p className="text-muted-foreground text-sm text-center md:text-left">
             © 2026 Andelir Hotel. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-muted-foreground">
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+            <Link 
+              to="/admin/login" 
+              className="hover:text-primary transition-colors flex items-center gap-1 opacity-50 hover:opacity-100"
+              title="Admin Login"
+            >
+              <Settings className="w-3 h-3" />
+            </Link>
           </div>
         </div>
       </div>
